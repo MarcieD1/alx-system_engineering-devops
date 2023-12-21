@@ -5,7 +5,7 @@
 ssh-keygen -t rsa -b 4096 -C "marciatarisai@icloud.com"
 
 # Check if the key pair is generated successfully
-if [ $? -eq 0 ]; then
+if ssh-keygen -t rsa -b 4096 -C "marciatarisai@icloud.com"; then
     echo "RSA key pair generated successfully"
 else
     echo "Error generating RSA key pair"
