@@ -4,20 +4,17 @@
 file_path="school"
 
 # Check if the file exists
-if [ -e "$file_path" ]; then
-    echo "$file_path file exists"
+if [ -e "school" ] then
+    echo "school file exists"
 
     # Check if the file is empty
-    if [ -s "$file_path" ]; then
-        echo "$file_path is not empty"
+    if [ -s "school" ] then
+        echo "school is not empty"
 
         # Check if the file is a regular file
-        if [ -f "$file_path" ]; then
-            echo "$file_path is a regular file"
+        if [ -f "school" ] then
+            echo "school is a regular file"
         fi
-    else
-        echo "$file_path is empty"
-    fi
 else
-    echo "$file_path file does not exist"
+    echo "school file does not exist"
 fi
