@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script pings an IP address passed as an argument.
+
+# Requirements: Accepts a string as an argument, displays usage if no argument passed, pings the IP 5 times.
+
+# Example usage:
+# ./5-is_the_host_on_the_network 8.8.8.8

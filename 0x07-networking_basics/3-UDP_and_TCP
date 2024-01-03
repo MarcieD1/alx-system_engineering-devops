@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# This script provides information about UDP and TCP protocols.
+
+# Answer 1: It is a protocol that is transferring data in a slow way but surely
+# Answer 2: It is a protocol that is transferring data in a fast way and might lose data along the process
+# Answer 3: May I increase the rate at which I am sending you boxes?
