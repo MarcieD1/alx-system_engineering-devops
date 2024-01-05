@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # This script configures an Ubuntu server to change the IP address of localhost and facebook.com.
+#  - localhost resolves to 127.0.0.2
+#  - facebook.com resolves to 8.8.8.8
 
-# Change localhost IP
-sudo echo "127.0.0.2 localhost" | sudo tee -a /etc/hosts > /dev/null
-
-# Change facebook.com IP
-sudo echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts > /dev/null
+cp /etc/hosts ~/hosts.new
+echo "127.0.0.2		localhost" > ~/hosts.new
+echo "8.8.8.8		facebook.com" >> ~/hosts.new
+cp -f ~/hosts.new /etc/hosts
