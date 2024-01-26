@@ -4,12 +4,9 @@
 
 This project is broken up into sections to design a web infrastructure, creating diagrams, and explaining components. Each section is outlined below.
 
-## Tasks
-
 ### Task 0: Simple Web Stack
 
 #### Web Infrastructure Diagram:
-![Web Infrastructure Diagram](https://lucid.app/lucidchart/b412fac2-22d3-44f8-b3c9-cd5331d5baba/edit?viewport_loc=-1880%2C-786%2C3312%2C1572%2C0_0&invitationId=inv_8403d157-cbfd-43e9-9a4e-a10cf3936571)
 
 #### Explanation:
 - **User Access:** A user initiates access to the website.
@@ -69,4 +66,3 @@ This project is broken up into sections to design a web infrastructure, creating
 ## Caution
 - Focus on answering what is asked.
 - Avoid unnecessary details unless requested.
-
