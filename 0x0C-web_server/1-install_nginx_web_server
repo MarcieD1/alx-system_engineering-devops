@@ -1,27 +1,29 @@
 #!/usr/bin/env bash
-# This script configures an Ubuntu machine to install and set up Nginx.
+# This script installs and configures Nginx on an Ubuntu server
 
 # Install Nginx
 apt-get update
 apt-get install -y nginx
 
-# Ensure Nginx is listening on port 80
-sed -i 's/80 default_server;/80;/' /etc/nginx/sites-available/default
+# Start Nginx
+service nginx start
 
-# Restart Nginx
-service nginx restart
+# Make sure Nginx is listening on port 80
+if ! netstat -tulpen | grep ":80" > /dev/null; then
+    echo "Nginx is not listening on port 80. Check the installation."
+    exit 1
+fi
 
 # Create a simple HTML page with "Hello World!"
 echo "<html><body>Hello World!</body></html>" > /var/www/html/index.html
 
-# Ensure all files end with a new line
-find /var/www/html -type f -exec sed -i -e '$a\' {} \;
+# Restart Nginx without using systemctl
+kill -HUP $(cat /var/run/nginx.pid)
 
-# Pass Shellcheck without errors
-# (Shellcheck is a tool for analyzing shell scripts)
-# No specific action needed here, as we've followed best practices.
+# Check if Nginx is running
+if ! ps aux | grep "nginx: master" | grep -v grep > /dev/null; then
+    echo "Nginx is not running. Check the installation."
+    exit 1
+fi
 
-# Add a README.md file
-echo "# Nginx Installation Project" > /var/www/html/README.md
-
-# Done! Nginx is now installed and configured.
+echo "Nginx installed and configured successfully."
