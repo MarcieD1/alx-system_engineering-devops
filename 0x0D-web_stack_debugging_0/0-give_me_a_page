@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script runs Apache on the Docker container and returns a page containing "Hello Holberton"
+
+# Update and install Apache
+apt-get update
+apt-get install -y apache2
+
+# Start the Apache service
+service apache2 start
+
+# Create an HTML file with "Hello Holberton"
+echo "Hello Holberton" > /var/www/html/index.html
+
+# Display the Apache access log to keep the container running
+tail -f /var/log/apache2/access.log
