@@ -1,18 +1,5 @@
 #!/usr/bin/env bash
+# debugging nginx port 80
 
-# Backup the default configuration file
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
-
-# Configure Nginx to listen on port 80 for all active IPv4 IPs
-echo "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    index index.html index.htm;
-}" > /etc/nginx/sites-available/default
-
-# Create a symbolic link to enable the default site
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# Restart Nginx service
-service nginx restart
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
