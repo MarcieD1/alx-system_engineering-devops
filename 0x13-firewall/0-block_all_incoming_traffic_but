@@ -1,19 +1,14 @@
-1. Install ufw(if it is not already installed)
-
+# Install ufw
 sudo apt update
 sudo apt install ufw
 
-2. Set up the firewall rules to allow incoming traffic on ports 22 (SSH), 443 (HTTPS), and 80 (HTTP), while blocking all other incoming traffic:
-
-sudo ufw default deny incoming
+# Allow incoming traffic for SSH (port 22), HTTP (port 80), and HTTPS (port 443)
 sudo ufw allow 22/tcp
-sudo ufw allow 443/tcp
 sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
 
-3. Enable the firewall to apply the rules:
+# Deny all other incoming traffic
+sudo ufw default deny incoming
 
+# Enable the firewall
 sudo ufw enable
-
-4. Verify the status of ufw to ensure the rules are in place:
-
-sudo ufw status
