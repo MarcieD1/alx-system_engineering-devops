@@ -1,0 +1,9 @@
+# Update packages and install iptables-persistent
+sudo apt-get update
+sudo apt-get install -y iptables-persistent
+
+# Set up the port redirection
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+
+# Save the iptables rules
+sudo netfilter-persistent save
