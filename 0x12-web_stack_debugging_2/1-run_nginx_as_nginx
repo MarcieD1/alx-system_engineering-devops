@@ -1,16 +1,7 @@
-#!/bin/bash
-
-# Stop the Nginx service
-service nginx stop
-
-# Edit the Nginx configuration file to run as the nginx user
-sed -i 's/user  nginx;/user  nginx;/' /etc/nginx/nginx.conf
-
-# Restart the Nginx service
-service nginx start
-
-# Verify that Nginx is running as the nginx user
-ps auxff | grep ngin[x]
-
-# Check if Nginx is listening on all active IPs on port 8080
-nc -z 0 8080
+#!/usr/bin/env bash
+# A BASH Script that runs nignx webserver as nginx and also configures nginx to
+# listen to port 8080
+pkill apache2
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+chmod 644 /etc/nginx/nginx.conf
+sudo -u nginx service nginx restart
