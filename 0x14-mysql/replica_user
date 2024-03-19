@@ -1,0 +1,5 @@
+mysql -u root -p
+CREATE USER 'replica_user'@'%' IDENTIFIED BY 'your_password';
+GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%';
+GRANT SELECT ON mysql.user TO 'holberton_user'@'localhost';
+SELECT user, Repl_slave_priv FROM mysql.user;
