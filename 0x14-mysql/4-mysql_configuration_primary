@@ -1,0 +1,13 @@
+#1. Open the  my.cnf  file for editing:
+
+sudo nano /etc/mysql/my.cnf
+
+2.Add the following lines under the  [mysqld]  section to enable binary logging and set the server ID:
+server-id = 1
+ log_bin = /var/log/mysql/mysql-bin.log
+ binlog_do_db = tyrell_corp
+
+3.Comment out the  bind-address  parameter if present:
+# bind-address = 127.0.0.1
+
+4.sudo service mysql restart
