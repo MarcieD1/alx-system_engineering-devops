@@ -3,7 +3,6 @@
 import requests
 import sys
 
-#!/usr/bin/python3
 """
 Returns to-do list information for a given employee ID.
 
