@@ -2,16 +2,29 @@
 """
 Contains the number_of_subscribers function
 """
-
 import requests
 
-
 def number_of_subscribers(subreddit):
-    """returns the number of subscribers for a given subreddit"""
-    if subreddit is None or type(subreddit) is not str:
+    """
+    Returns the number of subscribers for a given subreddit.
+    If the subreddit is invalid or None, returns 0.
+    """
+    if subreddit is None or not isinstance(subreddit, str):
         return 0
-    r = requests.get('http://www.reddit.com/r/{}/about.json'.format(subreddit),
-                     headers={'User-Agent': '0x16-api_advanced:project:\
-v1.0.0 (by /u/firdaus_cartoon_jr)'}).json()
-    subs = r.get("data", {}).get("subscribers", 0)
-    return subs
+
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {'User-Agent': '0x16-api_advanced:project:v1.0.0 (by /u/firdaus_cartoon_jr)'}
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json()
+        subs = data.get("data", {}).get("subscribers", 0)
+        return subs
+    else:
+        return 0
+
+# Testing the function
+if __name__ == "__main__":
+    subreddit = "programming"  # Example subreddit
+    print(number_of_subscribers(subreddit))
