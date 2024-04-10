@@ -1,22 +1,28 @@
 #!/usr/bin/python3
-"""Contains top_ten function"""
+
 import requests
 
-
 def top_ten(subreddit):
-    """Print the titles of the 10 hottest posts on a given subreddit."""
-    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    headers = {
-        "User-Agent": "0x16-api_advanced:project:\
-v1.0.0 (by /u/firdaus_cartoon_jr)"
-    }
-    params = {
-        "limit": 10
-    }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    if response.status_code == 404:
-        print("None")
-        return
-    results = response.json().get("data")
-    [print(c.get("data").get("title")) for c in results.get("children")]
+    """Read reddit API and print titles of the first 10 hot posts"""
+    headers = {'User-Agent': 'My User Agent 1.0'}
+    url = f'https://www.reddit.com/r/{subreddit}/hot.json?limit=10'
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Raise an exception for any HTTP errors
+        data = response.json()
+        if 'data' in data and 'children' in data['data']:
+            for post in data['data']['children']:
+                print(post['data']['title'])
+    except requests.exceptions.HTTPError as err:
+        if response.status_code == 404:
+            print('None')
+        else:
+            print(f"Error: {err}")
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) != 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        subreddit = sys.argv[1]
+        top_ten(subreddit)
