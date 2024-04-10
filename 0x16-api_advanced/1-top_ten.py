@@ -1,28 +1,23 @@
 #!/usr/bin/python3
-
+""" Exporting csv files"""
+import json
 import requests
+import sys
+
 
 def top_ten(subreddit):
-    """Read reddit API and print titles of the first 10 hot posts"""
-    headers = {'User-Agent': 'My User Agent 1.0'}
-    url = f'https://www.reddit.com/r/{subreddit}/hot.json?limit=10'
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Raise an exception for any HTTP errors
-        data = response.json()
-        if 'data' in data and 'children' in data['data']:
-            for post in data['data']['children']:
-                print(post['data']['title'])
-    except requests.exceptions.HTTPError as err:
-        if response.status_code == 404:
-            print('None')
-        else:
-            print(f"Error: {err}")
-
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) != 2:
-        print("Please pass an argument for the subreddit to search.")
+    """Read reddit API and return top 10 hotspots """
+    username = 'Ok_Internet3066'
+    password = 'Lilydiamond13##'
+    user_pass_dict = {'user': username, 'passwd': password, 'api_type': 'json'}
+    headers = {'user-agent': '/u/Ok_Internet3066 ALX APP for holberton school'}
+    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    client = requests.session()
+    client.headers = headers
+    r = client.get(url, allow_redirects=False)
+    if r.status_code == 200:
+        list_titles = r.json()['data']['children']
+        for a in list_titles[:10]:
+            print(a['data']['title'])
     else:
-        subreddit = sys.argv[1]
-        top_ten(subreddit)
+        return(print("None"))
