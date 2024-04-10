@@ -4,20 +4,29 @@ import json
 import requests
 import sys
 
-
 def top_ten(subreddit):
     """Read reddit API and return top 10 hotspots """
-    username = 'Ok_Internet3066'
-    password = 'Lilydiamond13##'
-    user_pass_dict = {'user': username, 'passwd': password, 'api_type': 'json'}
     headers = {'user-agent': '/u/Ok_Internet3066 ALX APP for holberton school'}
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    client = requests.session()
-    client.headers = headers
-    r = client.get(url, allow_redirects=False)
-    if r.status_code == 200:
-        list_titles = r.json()['data']['children']
-        for a in list_titles[:10]:
-            print(a['data']['title'])
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        data = response.json().get("data")
+        if data and "children" in data:
+            children = data["children"]
+            for child in children[:10]:
+                print(child["data"]["title"])
+        else:
+            print("No posts found in subreddit: {}".format(subreddit))
+    elif response.status_code == 404:
+        print("Subreddit '{}' not found.".format(subreddit))
     else:
-        return(print("None"))
+        print("Error fetching data. Status code: {}".format(response.status_code))
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Please provide a subreddit name.")
+        sys.exit(1)
+
+    subreddit = sys.argv[1]
+    top_ten(subreddit)
