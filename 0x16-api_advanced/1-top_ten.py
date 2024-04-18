@@ -1,32 +1,37 @@
 #!/usr/bin/python3
-""" Exporting csv files"""
-import json
+"""
+Script to print hot posts on a given Reddit subreddit.
+"""
+
 import requests
-import sys
+
 
 def top_ten(subreddit):
-    """Read reddit API and return top 10 hotspots """
-    headers = {'user-agent': '/u/Ok_Internet3066 ALX APP for holberton school'}
-    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    response = requests.get(url, headers=headers)
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    # Construct the URL for the subreddit's hot posts in JSON format
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
 
-    if response.status_code == 200:
-        data = response.json().get("data")
-        if data and "children" in data:
-            children = data["children"]
-            for child in children[:10]:
-                print(child["data"]["title"])
-        else:
-            print("No posts found in subreddit: {}".format(subreddit))
-    elif response.status_code == 404:
-        print("Subreddit '{}' not found.".format(subreddit))
-    else:
-        print("Error fetching data. Status code: {}".format(response.status_code))
+    # Define headers for the HTTP request, including User-Agent
+    headers = {
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+    }
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Please provide a subreddit name.")
-        sys.exit(1)
+    # Define parameters for the request, limiting the number of posts to 10
+    params = {
+        "limit": 10
+    }
 
-    subreddit = sys.argv[1]
-    top_ten(subreddit)
+    # Send a GET request to the subreddit's hot posts page
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+
+    # Check if the response status code indicates a not-found error (404)
+    if response.status_code == 404:
+        print("None")
+        return
+
+    # Parse the JSON response and extract the 'data' section
+    results = response.json().get("data")
+
+    # Print the titles of the top 10 hottest posts
+    [print(c.get("data").get("title")) for c in results.get("children")]
